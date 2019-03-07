@@ -1,8 +1,14 @@
+import breeze.linalg.eigSym.justEigenvalues.EigSym_DM_Impl
+import org.apache.commons.math3.util.MathArrays.Position
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.ml.linalg.{Vectors,Vector}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{SQLContext, SaveMode}
+import org.apache.spark.sql.expressions._
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.col
 
 /*
   Analisi di un database di calcio
@@ -11,21 +17,23 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
-    val ruoli:Map[String,String] = Map("GK"->"portiere",
-      "LB"-> "Terzino Sinistro",
-      "CB"-> "Difensore centrale",
-      "RB"-> "Terzino destro",
-      "CDM"-> "Centrocampista difensivo",
-      "CM"-> "Centrocampista",
-      "CAM"-> "Centrocampista offensivo",
-      "LM"-> "Esterno sinistro",
-      "LW"-> "Ala sinistra",
-      "LF"-> "Attaccante sinistro",
-      "RM"-> "Esterno destro",
-      "RW"-> "Ala destra",
-      "RF"-> "Attaczante destro",
-      "CF"-> "Seconda punta",
-      "ST"-> "Attaccante" )
+    val clusterNumber = 4
+
+    val ruoli = Map(col("GK")->col("portiere"),
+      col("LB")-> col("Terzino Sinistro"),
+      col("CB")-> col("Difensore centrale"),
+      col("RB")-> col("Terzino destro"),
+      col("CDM")-> col("Centrocampista difensivo"),
+      col("CM")-> col("Centrocampista"),
+      col("CAM")-> col("Centrocampista offensivo"),
+      col("LM")-> col("Esterno sinistro"),
+      col("LW")-> col("Ala sinistra"),
+      col("LF")-> col("Attaccante sinistro"),
+      col("RM")-> col("Esterno destro"),
+      col("RW")-> col("Ala destra"),
+      col("RF")-> col("Attaczante destro"),
+      col("CF")-> col("Seconda punta"),
+      col("ST")-> col("Attaccante") )
 
     var conf = new SparkConf().setAppName("SoccerAnalysis").setMaster("local[*]")
     val sc = new SparkContext(conf)
@@ -88,7 +96,8 @@ object main {
       "Positoning"))
       .setOutputCol("features")
 
-    val kmeans = new KMeans().setK(15).setSeed(1)
+    /* Viene eseguito il clustering dei dati*/
+    val kmeans = new KMeans().setK(clusterNumber).setSeed(1)
     val model = kmeans.fit(assembler.transform(playerDF))
 
     val predictions = model.transform(assembler.transform(playerDF))
@@ -103,10 +112,31 @@ object main {
     println("Number of partition: ")
     println(playerDF.rdd.partitions.size)
 
-    //predictions.toDF().show()
+    predictions.toDF().show()
 
-    predictions.filter("prediction == 3").show()
+    //predictions.filter("prediction == 3").show()
 
+    /*
+      Vengono analizzati i cluster
+     */
+    // Definisco la funzione per calcolare la distanza di ongni punto dal suo centroide
+    val distanceFromCenters = udf((features: Vector, c: Int) => Vectors.sqdist(features, model.clusterCenters(c)))
+
+    // Applico la funzione al dataframe
+    val distancesDF = predictions.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
+    // Stampo i primi 10
+    distancesDF.filter("prediction == 0 AND Overall > 80").sort(col("distanceFromCenter").desc).show(10)
+
+
+
+    val res = predictions.toDF().groupBy("prediction","Position").count().
+      withColumn("percentage", col("count") /  sum("count").over() * 100)
+
+    res.filter("prediction == 3").sort(col("percentage").desc).show()
+
+    /*
+      Vengono salvati i dati dell'analisi
+     */
     predictions.toDF().select("Player Name",
       "Pace",
       "Acceleration",
@@ -148,7 +178,8 @@ object main {
       "Speed",
       "Kicking",
       "Positoning",
-      "prediction").write.option("header","True").csv("src\\main\\resources\\test.csv")
+      "prediction").write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\test.csv")
+
   }
 
 
