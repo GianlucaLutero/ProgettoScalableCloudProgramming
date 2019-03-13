@@ -1,14 +1,16 @@
 import breeze.linalg.eigSym.justEigenvalues.EigSym_DM_Impl
 import org.apache.commons.math3.util.MathArrays.Position
+import org.apache.spark
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 import org.apache.spark.ml.feature.VectorAssembler
-import org.apache.spark.ml.linalg.{Vectors,Vector}
+import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{SQLContext, SaveMode}
 import org.apache.spark.sql.expressions._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.functions.col
+
 
 /*
   Analisi di un database di calcio
@@ -19,25 +21,26 @@ object main {
 
     val clusterNumber = 4
 
-    val ruoli = Map(col("GK")->col("portiere"),
-      col("LB")-> col("Terzino Sinistro"),
-      col("CB")-> col("Difensore centrale"),
-      col("RB")-> col("Terzino destro"),
-      col("CDM")-> col("Centrocampista difensivo"),
-      col("CM")-> col("Centrocampista"),
-      col("CAM")-> col("Centrocampista offensivo"),
-      col("LM")-> col("Esterno sinistro"),
-      col("LW")-> col("Ala sinistra"),
-      col("LF")-> col("Attaccante sinistro"),
-      col("RM")-> col("Esterno destro"),
-      col("RW")-> col("Ala destra"),
-      col("RF")-> col("Attaczante destro"),
-      col("CF")-> col("Seconda punta"),
-      col("ST")-> col("Attaccante") )
+    val ruoli = Map("GK"->"portiere",
+      "LB"-> "Terzino Sinistro",
+      "CB"-> "Difensore centrale",
+      "RB"-> "Terzino destro",
+      "CDM"-> "Centrocampista difensivo",
+      "CM"-> "Centrocampista",
+      "CAM"-> "Centrocampista offensivo",
+      "LM"-> "Esterno sinistro",
+      "LW"-> "Ala sinistra",
+      "LF"-> "Attaccante sinistro",
+      "RM"-> "Esterno destro",
+      "RW"-> "Ala destra",
+      "RF"-> "Attaczante destro",
+      "CF"-> "Seconda punta",
+      "ST"-> "Attaccante" )
 
     var conf = new SparkConf().setAppName("SoccerAnalysis").setMaster("local[*]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
+    import sqlContext.implicits._
 
     //val textRDD = sc.textFile("src\\main\\resources\\FIFA19PlayerDB.csv")
 
@@ -125,18 +128,39 @@ object main {
     // Applico la funzione al dataframe
     val distancesDF = predictions.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
     // Stampo i primi 10
-    distancesDF.filter("prediction == 0 AND Overall > 80").sort(col("distanceFromCenter").desc).show(10)
+    //distancesDF.filter("prediction == 0 AND Overall > 80").sort(col("distanceFromCenter").desc).show(10)
 
 
+    // Conto i giocatori per ogni ruolo
+    val postPerc = predictions.toDF().groupBy("Position").count().
+      withColumn("percentage", col("count") /  sum("count").over() * 100)
 
+    //postPerc.sort(col("percentage").desc).show()
+
+    //postPerc.sort(col("percentage").desc).withColumn("Position",col(ruoli("Position"))).show()
+
+
+    // Conto in ogni cluster i giocatori per ogni ruolo
     val res = predictions.toDF().groupBy("prediction","Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    res.filter("prediction == 3").sort(col("percentage").desc).show()
+    //res.filter("prediction == 3").sort(col("percentage").desc).show()
+
 
     /*
       Vengono salvati i dati dell'analisi
      */
+
+    for(i <- 0 to 3)
+      distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10).
+        select("Player Name","Overall","Position","prediction","distanceFromCenter").
+        write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster"+i+"_first10_.csv")
+
+    postPerc.write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\count.csv")
+
+    res.sort(col("prediction").desc).
+      write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster_count.csv")
+
     predictions.toDF().select("Player Name",
       "Pace",
       "Acceleration",
@@ -178,7 +202,7 @@ object main {
       "Speed",
       "Kicking",
       "Positoning",
-      "prediction").write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\test.csv")
+      "prediction").write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster.csv")
 
   }
 
