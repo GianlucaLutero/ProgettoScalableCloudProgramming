@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.amazonaws:aws-android-sdk-s3:2.12.5:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.amazonaws/aws-android-sdk-s3/jars/aws-android-sdk-s3-2.12.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.amazonaws/aws-android-sdk-s3/srcs/aws-android-sdk-s3-2.12.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

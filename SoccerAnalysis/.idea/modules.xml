@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/socceranalysis.iml" filepath="$PROJECT_DIR$/.idea/modules/socceranalysis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/socceranalysis-build.iml" filepath="$PROJECT_DIR$/.idea/modules/socceranalysis-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SoccerAnalysis.iml" filepath="$PROJECT_DIR$/.idea/modules/SoccerAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SoccerAnalysis-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SoccerAnalysis-build.iml" />
     </modules>
   </component>
 </project>

@@ -4,7 +4,7 @@
 		module="socceranalysis_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190226154149"
+		publication="20190320104715"
 	>
 		<description>
 		SoccerAnalysis
@@ -32,7 +32,8 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
-		<dependency org="org.apache.spark" name="spark-mllib_2.12" rev="2.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-mllib_2.12" rev="2.4.0" conf="provided->default(compile)"/>
 		<dependency org="mysql" name="mysql-connector-java" rev="8.0.14" conf="compile->default(compile)"/>
+		<dependency org="com.amazonaws" name="aws-android-sdk-s3" rev="2.12.5" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

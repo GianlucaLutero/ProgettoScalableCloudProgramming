@@ -1,15 +1,12 @@
-import breeze.linalg.eigSym.justEigenvalues.EigSym_DM_Impl
-import org.apache.commons.math3.util.MathArrays.Position
-import org.apache.spark
+package soccer_analysis
+
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.linalg.{Vector, Vectors}
+import org.apache.spark.sql.functions.{col, _}
+import org.apache.spark.sql.{SQLContext, SaveMode, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.{SQLContext, SaveMode}
-import org.apache.spark.sql.expressions._
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.functions.col
 
 
 /*
@@ -18,6 +15,11 @@ import org.apache.spark.sql.functions.col
 object main {
 
   def main(args: Array[String]): Unit = {
+
+    import org.apache.log4j._
+
+    Logger.getLogger("org").setLevel(Level.ERROR)
+    Logger.getLogger("akka").setLevel(Level.ERROR)
 
     val clusterNumber = 4
 
@@ -37,21 +39,28 @@ object main {
       "CF"-> "Seconda punta",
       "ST"-> "Attaccante" )
 
-    var conf = new SparkConf().setAppName("SoccerAnalysis").setMaster("local[*]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
-    import sqlContext.implicits._
+    //var conf = new SparkConf().setAppName("SoccerAnalysis").setMaster("local[*]")
+    //val sc = new SparkContext(conf)
+    //val sqlContext = new SQLContext(sc)
+
+    val sqlContext = SparkSession.builder()
+      .appName("SoccerAnalysis")
+      .master("local[*]")
+      .config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider")
+      .getOrCreate()
+
 
     //val textRDD = sc.textFile("src\\main\\resources\\FIFA19PlayerDB.csv")
-
     //textRDD.foreach(println)
 
     val playerDF= sqlContext.read.format("csv")
       .option("header", "true")
       .option("inferSchema", "true")
       // In Linux scommenta la riga successiva e commenta quella dopo
-//    .load("src/main/resources/FIFA19PlayerDB.csv")
-      .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
+ //      .load("src/main/resources/FIFA19PlayerDB.csv")
+//      .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
+      .load("s3://scpdati/FIFA19PlayerDB.csv")
+      .repartition(4)
 
     //playerDF.show()
 
@@ -110,10 +119,10 @@ object main {
     val silhouette = evaluator.evaluate(predictions)
     println(s"Silhouette with squared euclidean distance = $silhouette")
 
-    println("Cluster Centers: ")
-    model.clusterCenters.foreach(println)
-    println("Number of partition: ")
-    println(playerDF.rdd.partitions.size)
+  //  println("Cluster Centers: ")
+  //  model.clusterCenters.foreach(println)
+  //  println("Number of partition: ")
+  //  println(playerDF.rdd.partitions.size)
 
     predictions.toDF().show()
 
