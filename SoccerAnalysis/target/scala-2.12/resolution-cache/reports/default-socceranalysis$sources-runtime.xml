@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="runtime"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190320104721"/>
+		date="20190321102548"/>
 	<dependencies>
 		<module organisation="com.amazonaws" name="aws-android-sdk-s3">
 			<revision name="2.12.5" status="release" pubdate="20190314223705" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://aws.amazon.com/sdkforandroid" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="2">

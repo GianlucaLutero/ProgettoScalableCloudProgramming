@@ -1,0 +1,8 @@
+
+[Download result files]
+aws s3 cp s3://scpdati/result Desktop\result --recursive
+
+[Submit work]
+aws emr add-steps --cluster-id "IDCLUSTER" --steps Type=Spark,Name="Spark Program Windows",ActionOnFailure=CONTINUE,Args=[--class,soccer_analysis.main,s3://scpdati/SoccerAnalysis-assembly-0.1.jar]
+
+aws emr add-steps --cluster-id j-1QT4JLL0OM2CC --steps Type=Spark,Name="Spark Program Windows",ActionOnFailure=CONTINUE,Args=[--class,soccer_analysis.main,s3://scpdati/SoccerAnalysis-assembly-0.1.jar]

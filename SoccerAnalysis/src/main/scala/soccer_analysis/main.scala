@@ -124,7 +124,7 @@ object main {
   //  println("Number of partition: ")
   //  println(playerDF.rdd.partitions.size)
 
-    predictions.toDF().show()
+  //  predictions.toDF().show()
 
     //predictions.filter("prediction == 3").show()
 
@@ -163,12 +163,12 @@ object main {
     for(i <- 0 to 3)
       distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10).
         select("Player Name","Overall","Position","prediction","distanceFromCenter").
-        write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster"+i+"_first10_.csv")
+        write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster"+i+"_first10_.csv")
 
-    postPerc.write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\count.csv")
+    postPerc.write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/count.csv")
 
     res.sort(col("prediction").desc).
-      write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster_count.csv")
+      write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster_count.csv")
 
     predictions.toDF().select("Player Name",
       "Pace",
@@ -211,7 +211,7 @@ object main {
       "Speed",
       "Kicking",
       "Positoning",
-      "prediction").write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("src\\main\\resources\\cluster.csv")
+      "prediction").coalesce(1).write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster.csv")
 
   }
 

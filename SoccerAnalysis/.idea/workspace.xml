@@ -57,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/project/assembly.sbt">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="56" selection-start-column="56" selection-end-column="56" />
+              <caret column="33" selection-start-column="33" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -65,11 +65,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="145" selection-start-line="145" selection-end-line="145" />
+            <state relative-caret-position="440">
+              <caret line="213" column="30" selection-start-line="213" selection-start-column="30" selection-end-line="213" selection-end-column="30" />
               <folding>
                 <element signature="e#25#69#0" expanded="true" />
                 <element signature="e#674#1154#0" />
+                <element signature="e#2181#2931#0" />
+                <element signature="e#5493#6284#0" />
               </folding>
             </state>
           </provider>
@@ -136,17 +138,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="SoccerAnalysis" type="58d84e3e:PackageViewProjectNode" />
-              <item name="socceranalysis-build" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,6 +153,30 @@
             <path>
               <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
               <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -169,6 +184,17 @@
               <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
               <item name="scala-2.12" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SoccerAnalysis" type="58d84e3e:PackageViewProjectNode" />
+              <item name="socceranalysis-build" type="616d4139:PackageViewModuleNode" />
             </path>
           </expand>
           <select />
@@ -210,7 +236,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553007811972" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553165871560" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -379,11 +405,13 @@
       <workItem from="1553011142598" duration="1806000" />
       <workItem from="1553012976006" duration="860000" />
       <workItem from="1553073952865" duration="644000" />
+      <workItem from="1553075178582" duration="1215000" />
+      <workItem from="1553160298309" duration="2051000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85718000" />
+    <option name="totallyTimeSpent" value="88984000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -397,7 +425,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.30939597" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.22818792" />
       <window_info id="Structure" order="1" weight="0.24973147" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -416,7 +444,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.49570355" weight="0.3295325" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4935553" weight="0.3295325" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4849624" weight="0.3295325" />
-      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.6308725" visible="true" weight="0.39660057" />
+      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.6308725" visible="true" weight="0.296034" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.5209452" weight="0.32719547" />
       <window_info anchor="bottom" id="Dependency Viewer" order="14" weight="0.3295325" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
@@ -526,17 +554,19 @@
     <entry file="file://$PROJECT_DIR$/project/assembly.sbt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="56" selection-start-column="56" selection-end-column="56" />
+          <caret column="33" selection-start-column="33" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="145" selection-start-line="145" selection-end-line="145" />
+        <state relative-caret-position="440">
+          <caret line="213" column="30" selection-start-line="213" selection-start-column="30" selection-end-line="213" selection-end-column="30" />
           <folding>
             <element signature="e#25#69#0" expanded="true" />
             <element signature="e#674#1154#0" />
+            <element signature="e#2181#2931#0" />
+            <element signature="e#5493#6284#0" />
           </folding>
         </state>
       </provider>

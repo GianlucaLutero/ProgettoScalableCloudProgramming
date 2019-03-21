@@ -4,7 +4,7 @@
 		module="socceranalysis-build"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20190320104700"
+		publication="20190321112643"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>
