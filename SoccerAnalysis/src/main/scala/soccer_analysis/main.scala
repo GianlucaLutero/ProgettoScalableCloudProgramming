@@ -7,6 +7,7 @@ import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.sql.functions.{col, _}
 import org.apache.spark.sql.{SQLContext, SaveMode, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
+import utility.RuntimeUtility
 
 
 /*
@@ -23,22 +24,6 @@ object main {
 
     val clusterNumber = 4
 
-    val ruoli = Map("GK"->"portiere",
-      "LB"-> "Terzino Sinistro",
-      "CB"-> "Difensore centrale",
-      "RB"-> "Terzino destro",
-      "CDM"-> "Centrocampista difensivo",
-      "CM"-> "Centrocampista",
-      "CAM"-> "Centrocampista offensivo",
-      "LM"-> "Esterno sinistro",
-      "LW"-> "Ala sinistra",
-      "LF"-> "Attaccante sinistro",
-      "RM"-> "Esterno destro",
-      "RW"-> "Ala destra",
-      "RF"-> "Attaczante destro",
-      "CF"-> "Seconda punta",
-      "ST"-> "Attaccante" )
-
     //var conf = new SparkConf().setAppName("SoccerAnalysis").setMaster("local[*]")
     //val sc = new SparkContext(conf)
     //val sqlContext = new SQLContext(sc)
@@ -53,12 +38,12 @@ object main {
     //val textRDD = sc.textFile("src\\main\\resources\\FIFA19PlayerDB.csv")
     //textRDD.foreach(println)
 
-    val playerDF= sqlContext.read.format("csv")
+    val playerDF = sqlContext.read.format("csv")
       .option("header", "true")
       .option("inferSchema", "true")
       // In Linux scommenta la riga successiva e commenta quella dopo
  //      .load("src/main/resources/FIFA19PlayerDB.csv")
-//      .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
+ //    .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
       .load("s3://scpdati/FIFA19PlayerDB.csv")
       .repartition(4)
 
@@ -109,11 +94,14 @@ object main {
       .setOutputCol("features")
 
     /* Viene eseguito il clustering dei dati*/
+    //val kmeans2 = new KMeans().setK(17).setSeed(1)
     val kmeans = new KMeans().setK(clusterNumber).setSeed(1)
-    val model = kmeans.fit(assembler.transform(playerDF))
+
+    //val model2 = RuntimeUtility.time(kmeans2.fit(assembler.transform(playerDF)))
+    val model = RuntimeUtility.time(kmeans.fit(assembler.transform(playerDF)))
 
     val predictions = model.transform(assembler.transform(playerDF))
-
+    //val predictions2 = model2.transform(assembler.transform(playerDF))
     val evaluator = new ClusteringEvaluator()
 
     val silhouette = evaluator.evaluate(predictions)
@@ -134,14 +122,36 @@ object main {
     // Definisco la funzione per calcolare la distanza di ongni punto dal suo centroide
     val distanceFromCenters = udf((features: Vector, c: Int) => Vectors.sqdist(features, model.clusterCenters(c)))
 
+    val ruoli = udf((position: String) => position match {
+      case "GK" => "Portiere"
+      case "LB" => "Terzino Sinistro"
+      case "CB" => "Difensore centrale"
+      case "RB" => "Terzino destro"
+      case "CDM"=> "Centrocampista difensivo"
+      case "CM" => "Centrocampista"
+      case "CAM"=> "Centrocampista offensivo"
+      case "LM" => "Esterno sinistro"
+      case "LW" => "Ala sinistra"
+      case "LF" => "Attaccante sinistro"
+      case "RM" => "Esterno destro"
+      case "RW" => "Ala destra"
+      case "RF" => "Attaczante destro"
+      case "CF" => "Seconda punta"
+      case "ST" => "Attaccante"
+      case "RWB" => "RWB"
+      case "LWB" => "LWB"
+      case _ => "NotDefined"
+    })
+
     // Applico la funzione al dataframe
-    val distancesDF = predictions.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
+    val predictionsITA = predictions.withColumn("Position",ruoli(col("Position")))
+
+    val distancesDF = predictionsITA.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
     // Stampo i primi 10
     //distancesDF.filter("prediction == 0 AND Overall > 80").sort(col("distanceFromCenter").desc).show(10)
 
-
     // Conto i giocatori per ogni ruolo
-    val postPerc = predictions.toDF().groupBy("Position").count().
+    val postPerc = predictionsITA.toDF().groupBy("Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
     //postPerc.sort(col("percentage").desc).show()
@@ -150,7 +160,7 @@ object main {
 
 
     // Conto in ogni cluster i giocatori per ogni ruolo
-    val res = predictions.toDF().groupBy("prediction","Position").count().
+    val res = predictionsITA.toDF().groupBy("prediction","Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
     //res.filter("prediction == 3").sort(col("percentage").desc).show()
@@ -170,7 +180,7 @@ object main {
     res.sort(col("prediction").desc).
       write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster_count.csv")
 
-    predictions.toDF().select("Player Name",
+    predictionsITA.toDF().select("Player Name",
       "Pace",
       "Acceleration",
       "Sprint Speed",

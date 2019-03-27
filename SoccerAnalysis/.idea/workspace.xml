@@ -44,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.sbt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+              <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -62,17 +62,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="213" column="30" selection-start-line="213" selection-start-column="30" selection-end-line="213" selection-end-column="30" />
+            <state relative-caret-position="663">
+              <caret line="46" column="1" selection-start-line="46" selection-start-column="1" selection-end-line="46" selection-end-column="1" />
               <folding>
                 <element signature="e#25#69#0" expanded="true" />
-                <element signature="e#674#1154#0" />
-                <element signature="e#2181#2931#0" />
-                <element signature="e#5493#6284#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -93,8 +99,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/scala/main.scala" />
         <option value="$PROJECT_DIR$/project/assembly.sbt" />
-        <option value="$PROJECT_DIR$/build.sbt" />
+        <option value="$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala" />
+        <option value="$PROJECT_DIR$/build.sbt" />
       </list>
     </option>
   </component>
@@ -153,12 +160,6 @@
             <path>
               <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
               <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -177,13 +178,10 @@
             <path>
               <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
               <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="scala-2.12" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="soccer_analysis" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -236,7 +234,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553165871560" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553624206084" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -277,7 +275,6 @@
     <configuration name="main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="soccer_analysis.main" />
       <module name="SoccerAnalysis" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -407,11 +404,15 @@
       <workItem from="1553073952865" duration="644000" />
       <workItem from="1553075178582" duration="1215000" />
       <workItem from="1553160298309" duration="2051000" />
+      <workItem from="1553592594028" duration="4327000" />
+      <workItem from="1553596999556" duration="610000" />
+      <workItem from="1553621170274" duration="3138000" />
+      <workItem from="1553677831428" duration="183000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88984000" />
+    <option name="totallyTimeSpent" value="97242000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -425,7 +426,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.22818792" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.24161074" />
       <window_info id="Structure" order="1" weight="0.24973147" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -439,12 +440,12 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49570355" weight="0.3295325" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.3691275" side_tool="true" weight="0.39660057" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.36979866" side_tool="true" weight="0.296034" />
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.55838925" weight="0.32719547" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.49570355" weight="0.3295325" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4935553" weight="0.3295325" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4849624" weight="0.3295325" />
-      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.6308725" visible="true" weight="0.296034" />
+      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.63020134" visible="true" weight="0.296034" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.5209452" weight="0.32719547" />
       <window_info anchor="bottom" id="Dependency Viewer" order="14" weight="0.3295325" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
@@ -488,11 +489,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/modules/SoccerAnalysis-build.iml">
       <provider selected="true" editor-type-id="text-editor">
@@ -547,7 +544,7 @@
     <entry file="file://$PROJECT_DIR$/build.sbt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -560,14 +557,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="213" column="30" selection-start-line="213" selection-start-column="30" selection-end-line="213" selection-end-column="30" />
+        <state relative-caret-position="663">
+          <caret line="46" column="1" selection-start-line="46" selection-start-column="1" selection-end-line="46" selection-end-column="1" />
           <folding>
             <element signature="e#25#69#0" expanded="true" />
-            <element signature="e#674#1154#0" />
-            <element signature="e#2181#2931#0" />
-            <element signature="e#5493#6284#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>

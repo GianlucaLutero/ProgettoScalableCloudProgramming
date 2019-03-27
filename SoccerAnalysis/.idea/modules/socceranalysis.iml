@@ -184,9 +184,9 @@
     <orderEntry type="library" scope="PROVIDED" name="sbt: com.chuusai:shapeless_2.12:2.3.2:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="sbt: com.carrotsearch:hppc:0.7.2:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="sbt: aopalliance:aopalliance:1.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-s3:2.12.5:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-kms:2.12.5:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-core:2.12.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.google.code.gson:gson:2.2.4:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.google.protobuf:protobuf-java:3.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.12.8:jar" level="project" />
     <orderEntry type="module-library">
       <library name="sbt: unmanaged-sources-and-docs">
         <CLASSES />
@@ -198,8 +198,8 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.12.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.google.protobuf:protobuf-java:3.6.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.google.code.gson:gson:2.2.4:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-core:2.12.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-kms:2.12.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.amazonaws:aws-android-sdk-s3:2.12.5:jar" level="project" />
   </component>
 </module>
