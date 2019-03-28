@@ -1,5 +1,6 @@
 package soccer_analysis
 
+import jdk.incubator.http.internal.frame.DataFrame
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 import org.apache.spark.ml.feature.VectorAssembler
@@ -42,9 +43,9 @@ object main {
       .option("header", "true")
       .option("inferSchema", "true")
       // In Linux scommenta la riga successiva e commenta quella dopo
- //      .load("src/main/resources/FIFA19PlayerDB.csv")
- //    .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
-      .load("s3://scpdati/FIFA19PlayerDB.csv")
+ //   .load("src/main/resources/FIFA19PlayerDB.csv")
+    .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
+ //     .load("s3://scpdati/FIFA19PlayerDB.csv")
       .repartition(4)
 
     //playerDF.show()
@@ -94,10 +95,8 @@ object main {
       .setOutputCol("features")
 
     /* Viene eseguito il clustering dei dati*/
-    //val kmeans2 = new KMeans().setK(17).setSeed(1)
     val kmeans = new KMeans().setK(clusterNumber).setSeed(1)
 
-    //val model2 = RuntimeUtility.time(kmeans2.fit(assembler.transform(playerDF)))
     val model = RuntimeUtility.time(kmeans.fit(assembler.transform(playerDF)))
 
     val predictions = model.transform(assembler.transform(playerDF))
@@ -116,6 +115,16 @@ object main {
 
     //predictions.filter("prediction == 3").show()
 
+    val control = RuntimeUtility.extractRole(playerDF)
+
+    //for(i <- 0 to 3)
+    //  control(i).show()
+
+    val count_position = predictions.toDF().groupBy("Position").count().
+      withColumn("percentage", col("count") /  sum("count").over() * 100)
+
+    //count_position.orderBy(col("count").desc).show(17)
+
     /*
       Vengono analizzati i cluster
      */
@@ -123,23 +132,23 @@ object main {
     val distanceFromCenters = udf((features: Vector, c: Int) => Vectors.sqdist(features, model.clusterCenters(c)))
 
     val ruoli = udf((position: String) => position match {
-      case "GK" => "Portiere"
-      case "LB" => "Terzino Sinistro"
-      case "CB" => "Difensore centrale"
-      case "RB" => "Terzino destro"
-      case "CDM"=> "Centrocampista difensivo"
-      case "CM" => "Centrocampista"
-      case "CAM"=> "Centrocampista offensivo"
-      case "LM" => "Esterno sinistro"
-      case "LW" => "Ala sinistra"
-      case "LF" => "Attaccante sinistro"
-      case "RM" => "Esterno destro"
-      case "RW" => "Ala destra"
-      case "RF" => "Attaczante destro"
-      case "CF" => "Seconda punta"
-      case "ST" => "Attaccante"
-      case "RWB" => "RWB"
-      case "LWB" => "LWB"
+      case "GK" => "Portiere"                     // Portiere
+      case "LB" => "Terzino Sinistro"             // Difensore
+      case "CB" => "Difensore centrale"           // Difensore
+      case "RB" => "Terzino destro"               // Difensore
+      case "CDM"=> "Centrocampista difensivo"     // Centrocampo
+      case "CM" => "Centrocampista"               // Centrocampo
+      case "CAM"=> "Centrocampista offensivo"     // Centrocampo
+      case "LM" => "Esterno sinistro"             // Centrocampo  //
+      case "LW" => "Ala sinistra"                 // Attacco
+      case "LF" => "Attaccante sinistro"          // Attacco
+      case "RM" => "Esterno destro"               // Centrocampo  //
+      case "RW" => "Ala destra"                   // Attacco
+      case "RF" => "Attaczante destro"            // Attacco
+      case "CF" => "Seconda punta"                // Attacco
+      case "ST" => "Attaccante"                   // Attacco
+      case "RWB" => "Mediano destro"              // Centrocampo //
+      case "LWB" => "Mediano sinistro"            // Centrocampo //
       case _ => "NotDefined"
     })
 
@@ -148,13 +157,13 @@ object main {
 
     val distancesDF = predictionsITA.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
     // Stampo i primi 10
-    //distancesDF.filter("prediction == 0 AND Overall > 80").sort(col("distanceFromCenter").desc).show(10)
+    //distancesDF.filter("prediction == 0").sort(col("distanceFromCenter").desc).show(10)
 
     // Conto i giocatori per ogni ruolo
     val postPerc = predictionsITA.toDF().groupBy("Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    //postPerc.sort(col("percentage").desc).show()
+    postPerc.sort(col("percentage").desc).show()
 
     //postPerc.sort(col("percentage").desc).withColumn("Position",col(ruoli("Position"))).show()
 
@@ -163,7 +172,7 @@ object main {
     val res = predictionsITA.toDF().groupBy("prediction","Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    //res.filter("prediction == 3").sort(col("percentage").desc).show()
+    res.filter("prediction == 0").sort(col("percentage").desc).show()
 
 
     /*
