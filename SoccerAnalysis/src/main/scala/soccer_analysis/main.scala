@@ -10,7 +10,6 @@ import org.apache.spark.sql.{SQLContext, SaveMode, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 import utility.RuntimeUtility
 
-
 /*
   Analisi di un database di calcio
  */
@@ -34,6 +33,8 @@ object main {
       .master("local[*]")
       .config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider")
       .getOrCreate()
+
+    import sqlContext.implicits._
 
 
     //val textRDD = sc.textFile("src\\main\\resources\\FIFA19PlayerDB.csv")
@@ -108,18 +109,28 @@ object main {
     println(s"Silhouette with squared euclidean distance = $silhouette")
     */
 
-    val (clusterList,modelList) = RuntimeUtility.clusterGeneration(playerDF,List(2,4,17),assembler)
+    val (clusterList,modelList,timeList) = RuntimeUtility.clusterGeneration(assembler.transform(playerDF),List(2,4,17))
     clusterList.foreach(i => println(i))
 
-    val predictions = clusterList(0)
-    val model = modelList(0)
+    val predictions = clusterList(1)
+    val model = modelList(1)
 
-
+    val (clusterList2,modelList2,timeList2) = RuntimeUtility
+      .clusterGeneration(predictions.filter("prediction == 1").withColumnRenamed("prediction","old_prediction"),List(7))
+    clusterList2(0).show()
     val evaluator = new ClusteringEvaluator()
+    var silhouette = List[Double]()
+    for(i <- clusterList.indices){
+      silhouette = silhouette :+ evaluator.evaluate(clusterList(i))
+    }
 
-    val silhouette = evaluator.evaluate(predictions)
-    println(s"Silhouette with squared euclidean distance = $silhouette")
-  //  println("Cluster Centers: ")
+    // Tabella delle performance al variare di K
+    val performanceCluster = Seq((2,silhouette(0),timeList(0)),
+      (4,silhouette(1),timeList(1)),
+      (17,silhouette(2),timeList(2)))
+      .toDF("K","Score","Time")
+
+    //  println("Cluster Centers: ")
   //  model.clusterCenters.foreach(println)
   //  println("Number of partition: ")
   //  println(playerDF.rdd.partitions.size)
@@ -127,23 +138,6 @@ object main {
   //  predictions.toDF().show()
 
     //predictions.filter("prediction == 3").show()
-
-    val control = RuntimeUtility.extractRole(playerDF)
-
-    //for(i <- 0 to 3)
-    //  control(i).show()
-
-    val count_position = predictions.toDF().groupBy("Position").count().
-      withColumn("percentage", col("count") /  sum("count").over() * 100)
-
-    //count_position.orderBy(col("count").desc).show(17)
-
-    /*
-      Vengono analizzati i cluster
-     */
-    // Definisco la funzione per calcolare la distanza di ongni punto dal suo centroide
-    val distanceFromCenters = udf((features: Vector, c: Int) => Vectors.sqdist(features, model.clusterCenters(c)))
-
     val ruoli = udf((position: String) => position match {
       case "GK" => "Portiere"                     // Portiere
       case "LB" => "Terzino Sinistro"             // Difensore
@@ -165,6 +159,25 @@ object main {
       case _ => "NotDefined"
     })
 
+    val control = RuntimeUtility.extractRole(playerDF)
+
+    //for(i <- 0 to 3)
+    //  control(i).show()
+
+    val count_position = control(2).toDF().withColumn("Position",ruoli(col("Position")))
+      .groupBy("Position").count().
+      withColumn("percentage", col("count") /  sum("count").over() * 100)
+
+    count_position.orderBy(col("count").desc).show(17)
+
+    /*
+      Vengono analizzati i cluster
+     */
+    // Definisco la funzione per calcolare la distanza di ongni punto dal suo centroide
+    val distanceFromCenters = udf((features: Vector, c: Int) => Vectors.sqdist(features, model.clusterCenters(c)))
+
+
+
     // Applico la funzione al dataframe
     val predictionsITA = predictions.withColumn("Position",ruoli(col("Position")))
 
@@ -176,7 +189,7 @@ object main {
     val postPerc = predictionsITA.toDF().groupBy("Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    postPerc.sort(col("percentage").desc).show()
+    //postPerc.sort(col("percentage").desc).show()
 
     //postPerc.sort(col("percentage").desc).withColumn("Position",col(ruoli("Position"))).show()
 
@@ -185,23 +198,39 @@ object main {
     val res = predictionsITA.toDF().groupBy("prediction","Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    res.filter("prediction == 0").sort(col("percentage").desc).show()
+    res.filter("prediction == 3").sort(col("percentage").desc).show()
 
 
     /*
       Vengono salvati i dati dell'analisi
      */
 
+    // Cluster
     for(i <- 0 to 3)
       distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10).
         select("Player Name","Overall","Position","prediction","distanceFromCenter").
         write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster"+i+"_first10_.csv")
 
-    postPerc.write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/count.csv")
+    // Statistiche sul dataset
+    postPerc.write.mode(SaveMode.Overwrite)
+      .option("header","True")
+      .format("csv")
+      .save("s3://scpdati/result/count.csv")
 
+    // Statistiche sui cluster
     res.sort(col("prediction").desc).
-      write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster_count.csv")
+      write.mode(SaveMode.Overwrite)
+      .option("header","True")
+      .format("csv")
+      .save("s3://scpdati/result/cluster_count.csv")
 
+    // Performance di calcolo al variare di K
+    performanceCluster.write.mode(SaveMode.Overwrite)
+      .option("header","True")
+      .format("csv")
+      .save("s3://scpdati/result/performance.csv")
+
+    // Dataset con colonna prediction
     predictionsITA.toDF().select("Player Name",
       "Pace",
       "Acceleration",
@@ -243,7 +272,10 @@ object main {
       "Speed",
       "Kicking",
       "Positoning",
-      "prediction").coalesce(1).write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster.csv")
+      "prediction").coalesce(1).write.mode(SaveMode.Overwrite)
+      .option("header","True")
+      .format("csv")
+      .save("s3://scpdati/result/cluster.csv")
 
   }
 
