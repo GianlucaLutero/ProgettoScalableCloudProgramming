@@ -95,6 +95,7 @@ object main {
       .setOutputCol("features")
 
     /* Viene eseguito il clustering dei dati*/
+    /*
     val kmeans = new KMeans().setK(clusterNumber).setSeed(1)
 
     val model = RuntimeUtility.time(kmeans.fit(assembler.transform(playerDF)))
@@ -105,7 +106,19 @@ object main {
 
     val silhouette = evaluator.evaluate(predictions)
     println(s"Silhouette with squared euclidean distance = $silhouette")
+    */
 
+    val (clusterList,modelList) = RuntimeUtility.clusterGeneration(playerDF,List(2,4,17),assembler)
+    clusterList.foreach(i => println(i))
+
+    val predictions = clusterList(0)
+    val model = modelList(0)
+
+
+    val evaluator = new ClusteringEvaluator()
+
+    val silhouette = evaluator.evaluate(predictions)
+    println(s"Silhouette with squared euclidean distance = $silhouette")
   //  println("Cluster Centers: ")
   //  model.clusterCenters.foreach(println)
   //  println("Number of partition: ")

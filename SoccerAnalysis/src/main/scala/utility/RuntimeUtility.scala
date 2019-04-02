@@ -1,5 +1,6 @@
 package utility
 
+import org.apache.spark.ml.clustering.{KMeans, KMeansModel}
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions.{col, _}
@@ -33,7 +34,6 @@ object RuntimeUtility {
     val roleList = List(
       df.filter(col("Position") === "GK"),
       df.filter(col("Position") === "LB" ||
-        col("Position") === "CB" ||
         col("Position") === "RB" ||
         col("Position") === "CB"
       ),
@@ -60,6 +60,28 @@ object RuntimeUtility {
     TO DO
     Funzione per eseguire kmeans in automatico con k crescente
    */
+
+  def clusterGeneration(df : DataFrame,kList : List[Int], assembler: VectorAssembler) = {
+
+    var ll =  List[DataFrame]()
+    var lm = List[KMeansModel]()
+
+    for( i <- kList){
+      val kmeans = new KMeans().setK(i).setSeed(1)
+
+
+      println(s"Cluster con K:$i")
+      val model = RuntimeUtility.time(kmeans.fit(assembler.transform(df)))
+
+      lm = lm :+ model
+
+      val predictions = model.transform(assembler.transform(df))
+
+      ll = ll :+ predictions
+    }
+
+    (ll,lm)
+  }
 
 }
 
