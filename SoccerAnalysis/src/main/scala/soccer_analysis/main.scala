@@ -45,8 +45,8 @@ object main {
       .option("inferSchema", "true")
       // In Linux scommenta la riga successiva e commenta quella dopo
  //   .load("src/main/resources/FIFA19PlayerDB.csv")
-    .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
- //     .load("s3://scpdati/FIFA19PlayerDB.csv")
+ //   .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
+      .load("s3://scpdati/FIFA19PlayerDB.csv")
       .repartition(4)
 
     //playerDF.show()
@@ -109,15 +109,16 @@ object main {
     println(s"Silhouette with squared euclidean distance = $silhouette")
     */
 
-    val (clusterList,modelList,timeList) = RuntimeUtility.clusterGeneration(assembler.transform(playerDF),List(2,4,17))
+    val (clusterList,modelList,timeList,errorList) = RuntimeUtility.clusterGeneration(assembler.transform(playerDF),List(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17))
     clusterList.foreach(i => println(i))
 
     val predictions = clusterList(1)
     val model = modelList(1)
 
-    val (clusterList2,modelList2,timeList2) = RuntimeUtility
+    // Clustering dei cluster
+    val (clusterList2,modelList2,timeList2,errorList2) = RuntimeUtility
       .clusterGeneration(predictions.filter("prediction == 1").withColumnRenamed("prediction","old_prediction"),List(7))
-    clusterList2(0).show()
+    //clusterList2(0).show()
     val evaluator = new ClusteringEvaluator()
     var silhouette = List[Double]()
     for(i <- clusterList.indices){
@@ -125,11 +126,20 @@ object main {
     }
 
     // Tabella delle performance al variare di K
-    val performanceCluster = Seq((2,silhouette(0),timeList(0)),
+    var performanceCluster = Seq((2,silhouette(0),errorList(0),timeList(0)))
+
+    for(i <- 1 to 15) {
+
+      performanceCluster = performanceCluster :+ (i + 2, silhouette(i), errorList(i),timeList(i))
+    }
+
+    val performance = performanceCluster.toDF("K","Score","WSS","Time")
+      /*
+    Seq((2,silhouette(0),timeList(0)),
       (4,silhouette(1),timeList(1)),
       (17,silhouette(2),timeList(2)))
       .toDF("K","Score","Time")
-
+    */
     //  println("Cluster Centers: ")
   //  model.clusterCenters.foreach(println)
   //  println("Number of partition: ")
@@ -168,7 +178,7 @@ object main {
       .groupBy("Position").count().
       withColumn("percentage", col("count") /  sum("count").over() * 100)
 
-    count_position.orderBy(col("count").desc).show(17)
+    //count_position.orderBy(col("count").desc).show(17)
 
     /*
       Vengono analizzati i cluster
@@ -207,9 +217,12 @@ object main {
 
     // Cluster
     for(i <- 0 to 3)
-      distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10).
-        select("Player Name","Overall","Position","prediction","distanceFromCenter").
-        write.mode(SaveMode.Overwrite).option("header","True").format("csv").save("s3://scpdati/result/cluster"+i+"_first10_.csv")
+      distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10)
+        .select("Player Name","Overall","Position","prediction","distanceFromCenter")
+        .write.mode(SaveMode.Overwrite)
+        .option("header","True")
+        .format("csv")
+        .save("s3://scpdati/result/cluster"+i+"_first10_.csv")
 
     // Statistiche sul dataset
     postPerc.write.mode(SaveMode.Overwrite)
@@ -225,7 +238,8 @@ object main {
       .save("s3://scpdati/result/cluster_count.csv")
 
     // Performance di calcolo al variare di K
-    performanceCluster.write.mode(SaveMode.Overwrite)
+    performance.coalesce(1)
+      .write.mode(SaveMode.Overwrite)
       .option("header","True")
       .format("csv")
       .save("s3://scpdati/result/performance.csv")

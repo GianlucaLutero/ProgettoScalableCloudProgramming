@@ -6,10 +6,10 @@ import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions.{col, _}
 
 /*
-  - Calcolare i tempi di esecuzione al variare di k (2 - 4 - 17) e numero di processori (1-3)
+  - Calcolare i tempi di esecuzione al variare di k (2 - 4 - 17) e numero di processori (1-3)  OK
   - Calcolare l'errore per la cluster analysis
   - Grafici dei risultati -> in python
-  - Aggregare posizioni simili (es: terzino destro e terzino sinistro)
+  - Aggregare posizioni simili (es: terzino destro e terzino sinistro) -> Non cambia
  */
 
 
@@ -95,9 +95,10 @@ object RuntimeUtility {
 
   def clusterGeneration(df : DataFrame,kList : List[Int]) = {
 
-    var ll =  List[DataFrame]()
+    var ll = List[DataFrame]()
     var lm = List[KMeansModel]()
-    var lt =List[Long]()
+    var lt = List[Long]()
+    var le = List[Double]()
 
     for( i <- kList){
       val kmeans = new KMeans().setK(i).setSeed(1)
@@ -106,6 +107,7 @@ object RuntimeUtility {
       println(s"Cluster con K:$i")
       val (model, time) = RuntimeUtility.time(kmeans.fit(df))
 
+      le = le :+ model.computeCost(df)
       lm = lm :+ model
       lt = lt :+ time
 
@@ -114,7 +116,7 @@ object RuntimeUtility {
       ll = ll :+ predictions
     }
 
-    (ll,lm,lt)
+    (ll,lm,lt,le)
   }
 
 }

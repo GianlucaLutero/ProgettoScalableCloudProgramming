@@ -9,15 +9,15 @@ val sparkVersion = "2.4.0"
 
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core
 
-/*
+
 libraryDependencies ++= Seq {
   "org.apache.spark" %% "spark-core" % sparkVersion % "provided"
   "org.apache.spark" %% "spark-sql"% sparkVersion % "provided"
   "org.apache.spark" %% "spark-hive" % sparkVersion % "provided"
   "org.apache.spark" %% "spark-mllib" % sparkVersion % "provided"
 }
-*/
 
+/*
 libraryDependencies ++= Seq {
   "org.apache.spark" %% "spark-core" % sparkVersion
   "org.apache.spark" %% "spark-sql"% sparkVersion
@@ -25,7 +25,7 @@ libraryDependencies ++= Seq {
   "org.apache.spark" %% "spark-mllib" % sparkVersion
   
 }
-
+*/
 // https://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.14"
 

@@ -48,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/build.sbt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="567">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+              <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -62,26 +62,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+            <state relative-caret-position="2016">
+              <caret line="135" column="62" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
               <folding>
                 <element signature="e#25#75#0" expanded="true" />
-                <element signature="e#1757#2507#0" />
-                <element signature="e#3793#4930#0" />
-                <element signature="e#7130#7921#0" />
+                <element signature="e#1791#2541#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="106" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="193">
+              <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
               <folding>
                 <element signature="e#17#76#0" expanded="true" />
               </folding>
@@ -111,8 +109,8 @@
         <option value="$PROJECT_DIR$/src/main/scala/main.scala" />
         <option value="$PROJECT_DIR$/project/assembly.sbt" />
         <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala" />
       </list>
     </option>
   </component>
@@ -156,6 +154,37 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
+              <item name="SoccerAnalysis" type="cbb8eebc:String" user="SoccerAnalysis" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
+              <item name="SoccerAnalysis" type="cbb8eebc:String" user="SoccerAnalysis" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="socceranalysis-build" type="cbb8eebc:String" user="socceranalysis-build" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="socceranalysis-build" type="cbb8eebc:String" user="socceranalysis-build" />
+              <item name="project" type="cbb8eebc:String" user="project" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,6 +223,17 @@
               <item name="scala" type="462c0819:PsiDirectoryNode" />
               <item name="soccer_analysis" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SoccerAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SoccerAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="scala-2.12" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -209,50 +249,19 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
-              <item name="SoccerAnalysis" type="cbb8eebc:String" user="SoccerAnalysis" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="socceranalysis" type="cbb8eebc:String" user="socceranalysis" />
-              <item name="SoccerAnalysis" type="cbb8eebc:String" user="SoccerAnalysis" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="socceranalysis-build" type="cbb8eebc:String" user="socceranalysis-build" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="socceranalysis-build" type="cbb8eebc:String" user="socceranalysis-build" />
-              <item name="project" type="cbb8eebc:String" user="project" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554220666022" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554302079355" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3125" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -366,8 +375,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4657838360761" />
-        <entry key="$PROJECT_DIR$/build.sbt" value="3632562984" />
+        <entry key="$PROJECT_DIR$" value="4658438781793" />
+        <entry key="$PROJECT_DIR$/build.sbt" value="3828457298" />
         <entry key="$PROJECT_DIR$/project/assembly.sbt" value="2947818574" />
         <entry key="$PROJECT_DIR$/project/build.properties" value="2567920773" />
       </map>
@@ -427,11 +436,16 @@
       <workItem from="1553788771977" duration="4625000" />
       <workItem from="1554191954006" duration="5727000" />
       <workItem from="1554212733693" duration="7924000" />
+      <workItem from="1554299194464" duration="2888000" />
+      <workItem from="1554302221149" duration="1041000" />
+      <workItem from="1554303603087" duration="2288000" />
+      <workItem from="1554308052599" duration="1468000" />
+      <workItem from="1554310550220" duration="67000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121863000" />
+    <option name="totallyTimeSpent" value="129615000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -444,8 +458,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.15637584" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.19261745" />
       <window_info id="Structure" order="1" weight="0.24973147" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -454,17 +469,17 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785176" weight="0.4546742" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785176" weight="0.30169973" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49570355" weight="0.3295325" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.36979866" side_tool="true" weight="0.296034" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.3704698" side_tool="true" weight="0.296034" />
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.55838925" weight="0.32719547" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.49570355" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4935553" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4849624" weight="0.3286119" />
-      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.63020134" weight="0.296034" />
+      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.6295302" visible="true" weight="0.38243628" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.5209452" weight="0.32719547" />
       <window_info anchor="bottom" id="Dependency Viewer" order="14" weight="0.3295325" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
@@ -563,7 +578,7 @@
     <entry file="file://$PROJECT_DIR$/build.sbt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -574,25 +589,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        <state relative-caret-position="2016">
+          <caret line="135" column="62" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
           <folding>
-            <element signature="e#17#76#0" expanded="true" />
+            <element signature="e#25#75#0" expanded="true" />
+            <element signature="e#1791#2541#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+        <state relative-caret-position="193">
+          <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
           <folding>
-            <element signature="e#25#75#0" expanded="true" />
-            <element signature="e#1757#2507#0" />
-            <element signature="e#3793#4930#0" />
-            <element signature="e#7130#7921#0" />
+            <element signature="e#17#76#0" expanded="true" />
           </folding>
         </state>
       </provider>
