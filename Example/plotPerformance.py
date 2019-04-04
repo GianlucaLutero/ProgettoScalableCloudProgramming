@@ -17,6 +17,6 @@ plt.ylabel('Average error')
 
 plt.subplot(2,1,2)
 plt.plot(x,y2,'o-')
-plt.ylabel('sum of squared error')
+plt.ylabel('Sum of squared error')
 
 plt.show()

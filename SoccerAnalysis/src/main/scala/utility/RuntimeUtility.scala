@@ -91,6 +91,11 @@ object RuntimeUtility {
 
   /*
     Funzione per eseguire kmeans in automatico con k crescente
+    restituisce
+     - la lista di dataframe clusterizzati con i diversi valori di k,
+     - la lista dei tempi impiegato da kmeans
+     - la lista dei WSS
+     - la lista dei modelli impiegati per il clustering
    */
 
   def clusterGeneration(df : DataFrame,kList : List[Int]) = {
@@ -101,18 +106,15 @@ object RuntimeUtility {
     var le = List[Double]()
 
     for( i <- kList){
-      val kmeans = new KMeans().setK(i).setSeed(1)
-
-
       println(s"Cluster con K:$i")
+
+      val kmeans = new KMeans().setK(i).setSeed(1)
       val (model, time) = RuntimeUtility.time(kmeans.fit(df))
+      val predictions = model.transform(df)
 
       le = le :+ model.computeCost(df)
       lm = lm :+ model
       lt = lt :+ time
-
-      val predictions = model.transform(df)
-
       ll = ll :+ predictions
     }
 
