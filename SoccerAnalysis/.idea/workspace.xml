@@ -47,17 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.sbt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="268">
               <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/assembly.sbt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="33" selection-start-column="33" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -65,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-472">
-              <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
+            <state relative-caret-position="273">
+              <caret line="219" column="8" selection-start-line="219" selection-start-column="8" selection-end-line="219" selection-end-column="8" />
               <folding>
                 <element signature="e#25#75#0" expanded="true" />
                 <element signature="e#1791#2541#0" />
@@ -79,7 +70,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1032">
+            <state relative-caret-position="1071">
               <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
               <folding>
                 <element signature="e#17#76#0" expanded="true" />
@@ -128,8 +119,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="146" />
-    <option name="y" value="42" />
+    <option name="x" value="145" />
+    <option name="y" value="41" />
     <option name="width" value="1400" />
     <option name="height" value="990" />
   </component>
@@ -155,6 +146,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SoccerAnalysis" type="58d84e3e:PackageViewProjectNode" />
+              <item name="socceranalysis-build" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -246,23 +248,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="SoccerAnalysis" type="58d84e3e:PackageViewProjectNode" />
-              <item name="socceranalysis-build" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554373530266" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554546599887" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -451,11 +442,12 @@
       <workItem from="1554308052599" duration="1468000" />
       <workItem from="1554310550220" duration="67000" />
       <workItem from="1554365957994" duration="3956000" />
+      <workItem from="1554539789079" duration="5300000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133571000" />
+    <option name="totallyTimeSpent" value="138871000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -469,7 +461,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.19530201" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.19798657" />
       <window_info id="Structure" order="1" weight="0.24973147" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -478,17 +470,17 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.35151514" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785176" weight="0.46033993" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49785176" weight="0.4036827" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49570355" weight="0.3295325" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.3704698" side_tool="true" weight="0.296034" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.37114093" side_tool="true" weight="0.38243628" />
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.55838925" weight="0.32719547" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.49570355" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4935553" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4849624" weight="0.3286119" />
-      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.6295302" weight="0.38243628" />
+      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="12" sideWeight="0.62885904" visible="true" weight="0.33002833" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.5209452" weight="0.32719547" />
       <window_info anchor="bottom" id="Dependency Viewer" order="14" weight="0.3295325" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
@@ -583,27 +575,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/assembly.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="33" selection-start-column="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/FIFA19PlayerDB.csv">
       <provider editor-type-id="LargeFileEditor" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/utility/RuntimeUtility.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1032">
+        <state relative-caret-position="1071">
           <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
           <folding>
             <element signature="e#17#76#0" expanded="true" />
@@ -611,10 +589,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/project/assembly.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="33" selection-start-column="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/soccer_analysis/main.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-472">
-          <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
+        <state relative-caret-position="273">
+          <caret line="219" column="8" selection-start-line="219" selection-start-column="8" selection-end-line="219" selection-end-column="8" />
           <folding>
             <element signature="e#25#75#0" expanded="true" />
             <element signature="e#1791#2541#0" />

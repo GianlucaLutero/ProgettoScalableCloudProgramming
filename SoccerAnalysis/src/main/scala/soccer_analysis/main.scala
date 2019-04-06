@@ -44,7 +44,7 @@ object main {
       .option("header", "true")
       .option("inferSchema", "true")
       // In Linux scommenta la riga successiva e commenta quella dopo
- //   .load("src/main/resources/FIFA19PlayerDB.csv")
+  //  .load("src/main/resources/FIFA19PlayerDB.csv")
  //   .load("src\\main\\resources\\FIFA19PlayerDB.csv").repartition(4)
       .load("s3://scpdati/FIFA19PlayerDB.csv")
       .repartition(4)
@@ -110,10 +110,10 @@ object main {
     */
 
     val (clusterList,modelList,timeList,errorList) = RuntimeUtility.clusterGeneration(assembler.transform(playerDF),List(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17))
-    clusterList.foreach(i => println(i))
+    //clusterList.foreach(i => println(i))
 
-    val predictions = clusterList(1)
-    val model = modelList(1)
+    val predictions = clusterList(2)
+    val model = modelList(2)
 
     // Clustering dei cluster
     val (clusterList2,modelList2,timeList2,errorList2) = RuntimeUtility
@@ -171,12 +171,12 @@ object main {
 
     val control = RuntimeUtility.extractRole(playerDF)
 
-    //for(i <- 0 to 3)
-    //  control(i).show()
+   // for(i <- 0 to 3)
+   //   control(i).show()
 
     val count_position = control(2).toDF().withColumn("Position",ruoli(col("Position")))
       .groupBy("Position").count().
-      withColumn("percentage", col("count") /  sum("count").over() * 100)
+      withColumn("percentage", col("count") /  sum("count").over() * 100).distinct()
 
     //count_position.orderBy(col("count").desc).show(17)
 
@@ -189,7 +189,7 @@ object main {
 
 
     // Applico la funzione al dataframe
-    val predictionsITA = predictions.withColumn("Position",ruoli(col("Position")))
+    val predictionsITA = predictions.withColumn("Position",ruoli(col("Position"))).distinct()
 
     val distancesDF = predictionsITA.withColumn("distanceFromCenter", distanceFromCenters(col("features"), col("prediction")))
     // Stampo i primi 10
@@ -214,8 +214,18 @@ object main {
     /*
       Vengono salvati i dati dell'analisi
      */
+    // Cluster di controllo
+    for(i <- 0 to 3)
+      control(i).toDF().coalesce(1).withColumn("Position",ruoli(col("Position")))
+        .distinct()
+        .groupBy("Position").count()
+        .withColumn("percentage", col("count") /  sum("count").over() * 100).distinct()
+        .write.mode(SaveMode.Overwrite)
+        .option("header","True")
+        .format("csv")
+        .save("s3://scpdati/result/correct_position_"+i+".csv")
 
-    // Cluster
+    // Salvo per ogni cluster i migliori primi 10
     for(i <- 0 to 3)
       distancesDF.filter(col("prediction") === i).sort(col("distanceFromCenter").desc).limit(10)
         .select("Player Name","Overall","Position","prediction","distanceFromCenter")
@@ -224,13 +234,13 @@ object main {
         .format("csv")
         .save("s3://scpdati/result/cluster"+i+"_first10_.csv")
 
-    // Statistiche sul dataset
+    // Statistiche sul dataset originale
     postPerc.write.mode(SaveMode.Overwrite)
       .option("header","True")
       .format("csv")
       .save("s3://scpdati/result/count.csv")
 
-    // Statistiche sui cluster
+    // Statistiche sui cluster ricavati
     res.sort(col("prediction").desc).
       write.mode(SaveMode.Overwrite)
       .option("header","True")
