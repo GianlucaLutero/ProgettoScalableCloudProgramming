@@ -219,7 +219,7 @@ object main {
       control(i).toDF().coalesce(1).withColumn("Position",ruoli(col("Position")))
         .distinct()
         .groupBy("Position").count()
-        .withColumn("percentage", col("count") /  sum("count").over() * 100).distinct()
+        .withColumn("percentage", col("count") /  sum("count").over() * 100)
         .write.mode(SaveMode.Overwrite)
         .option("header","True")
         .format("csv")
