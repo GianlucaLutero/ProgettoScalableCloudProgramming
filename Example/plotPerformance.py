@@ -3,7 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-data = pd.read_csv("performance.csv")
+root = "C:\\Users\\Gianluca\\Desktop\\result"
+data = pd.read_csv(root+"\\performance.csv\\performance.csv")
 
 x = data.loc[:,['K']].values
 y = data.loc[:,['Score']].values

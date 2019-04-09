@@ -87,12 +87,13 @@ object main {
       "Stamina",
       "Strength",
       "Aggression",
-      "Diving",
-      "Reflexes",
-      "Handling",
-      "Speed",
-      "Kicking",
-      "Positoning"))
+      //"Diving",
+      //"Reflexes",
+      //"Handling",
+      //"Speed",
+      //"Kicking",
+      //"Positoning"
+    ))
       .setOutputCol("features")
 
     /* Viene eseguito il clustering dei dati*/

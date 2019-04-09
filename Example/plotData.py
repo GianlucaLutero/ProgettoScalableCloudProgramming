@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Carico il file csv
-data = pd.read_csv("test.csv")
+root = "C:\\Users\\Gianluca\\Desktop\\result"
+data = pd.read_csv(root+"\\cluster.csv\\cluster.csv")
 
 #data.head()
 #print(data)
